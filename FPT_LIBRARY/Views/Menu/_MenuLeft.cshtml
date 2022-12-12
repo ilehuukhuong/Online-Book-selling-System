@@ -4,7 +4,15 @@
     <ul class="sidebar_categories">
         @foreach (var item in Model)
         {
-            <li><a href="@item.Alias-@item.Id">@item.Title</a></li>
+            if (ViewBag.CateId == item.Id)
+            {
+                <li class="active"><a href="/product-category/@item.Alias-@item.Id"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>@item.Title</a></li>
+            }
+            else
+            {
+                <li><a href="/product-category/@item.Alias-@item.Id">@item.Title</a></li>
+
+            }
 
         }
         @*<li class="active"><a href="#"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>Women</a></li>

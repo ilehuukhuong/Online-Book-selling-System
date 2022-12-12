@@ -14,9 +14,15 @@ namespace FPT_LIBRARY
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-               name: "CategoryProduct",
-               url: "shop",
+               name: "Product",
+               url: "product",
                defaults: new { controller = "Products", action = "Index", alias = UrlParameter.Optional },
+               namespaces: new[] { "FPT_LIBRARY.Controllers" }
+           );
+            routes.MapRoute(
+               name: "CategoryProducts",
+               url: "product-category/{alias}-{id}",
+               defaults: new { controller = "Products", action = "ProductCategory", id = UrlParameter.Optional },
                namespaces: new[] { "FPT_LIBRARY.Controllers" }
            );
             routes.MapRoute(
