@@ -1,0 +1,362 @@
+﻿@model PagedList.PagedList<FPT_LIBRARY.Models.EF.Product>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Books";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section naviheader
+{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/products" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>BOOKS MANAGEMENT</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">List @ViewBag.Title</h3>
+
+            <div class="card-tools">
+                <a href="/admin/products/add" class="btn btn-primary">CREATE</a>
+                <a href="#" class="btn btn-danger" id="BtnDeleteAll">DELETE</a>
+            </div>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "Products", FormMethod.Get, new { }))
+            {
+                <div class="input-group">
+                    @Html.TextBox("Searchtext", "", new { @class = "form-control", placeholder = "Type Something To Search" })
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-info" value="Search" style="margin-left: 5px;">
+                    </div>
+                </div>
+            }
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="SelectAll" /></th>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Image</th>
+                        <th class="text-center">Product Name</th>
+                        <th class="text-center">Product Category</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Created day</th>
+                        <th class="text-center">Display</th>
+                        <th class="text-center">Hot</th>
+                        <th class="text-center">Home</th>
+                        <th class="text-center">Feature</th>
+                        <th class="text-center">Sale</th>
+                        <th class="text-center">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var items in Model)
+                        {
+
+                            var strCheck = items.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckHot = items.IsHot ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckHome = items.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckFeature = items.IsFeature ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckSale = items.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            <tr id="trow_@items.Id">
+                                <td><input type="checkbox" id="cbkItem" value="@items.Id" /></td>
+                                <td class="text-center">@i</td>
+                                @if (items.ProductImage.Count() != 0)
+                                {
+                                    if (items.ProductImage.Count(x => x.IsDefault) == 0)
+                                    {
+                                        <td class="text-center text-warning imgproduct" data-id="@items.Id">No Default Image</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-center imgproduct" data-id="@items.Id"><img src="@items.ProductImage.FirstOrDefault(x => x.IsDefault).Image" width="50" /></td>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <td class="text-center text-danger imgproduct" data-id="@items.Id">No Image</td>
+                                }
+                                <td class="text-center">@items.Title</td>
+                                <td class="text-center">@items.ProductCategory.Title</td>
+                                <td class="text-center">@items.Quantity</td>
+                                <td class="text-center">@items.Price</td>
+                                <td class="text-center">@items.CreateDate.ToString("dd/MM/yyyy")</td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnActive">@Html.Raw(strCheck)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnHot">@Html.Raw(strCheckHot)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnHome">@Html.Raw(strCheckHome)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnFeature">@Html.Raw(strCheckFeature)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnSale">@Html.Raw(strCheckSale)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/admin/products/edit/@items.Id" class="btn btn-sm btn-warning">UPDATE</a>
+                                    <a href="#" data-id="@items.Id" class="btn btn-sm btn-danger btnDelete">DELETE</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No value!!!</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<div id="dialog">
+    <iframe id="myIframe" style="border:0; width:100%; height:100%;"></iframe>
+</div>
+
+@section scripts
+    {
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            //Hiển thị form upload ảnh
+            $("#dialog").dialog({
+                autoOpen: false,
+                show: "fade",
+                hide: "fade",
+                modal: true,
+                height: '600',
+                width: '700',
+                resizable: true,
+                title: 'Manage Product Images',
+                close: function () {
+                    window.location.reload();
+                }
+            });
+            $('body').on("click", '.imgproduct', function () {
+                var proid = $(this).attr("data-id");
+                $("#dialog #myIframe").attr("src", "/admin/ProductImages/Index?id=" + proid);
+                $('#dialog').dialog('open');
+                return false;
+            });
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Do you want to delete this product?');
+                if (conf == true) {
+                    $.ajax({
+                        url: '/admin/products/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    });
+                };
+            });
+            $('body').on('click', '#BtnDeleteAll', function (e) {
+                e.preventDefault();
+                var str = "";
+                var checkbox = $(this).parents('.card').find('tr td input:checkbox');
+                var i = 0;
+                checkbox.each(function () {
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                        var _id = $(this).val();
+                        if (i == 0) {
+                            str += _id;
+                        } else {
+                            str += "," + _id;
+                        }
+                        i++;
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+                if (str.length > 0) {
+                    var conf = confirm('Do you want to delete all selected?');
+                    if (conf == true) {
+                        $.ajax({
+                            url: '/admin/products/DeleteAll',
+                            type: 'POST',
+                            data: { ids: str },
+                            success: function (rs) {
+                                if (rs.success) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            $('body').on('change', '#SelectAll', function () {
+                var checkStatus = this.checked;
+                var checkbox = $(this).parents('.card-body').find('tr td input:checkbox');
+                checkbox.each(function () {
+                    this.checked = checkStatus;
+                    if (this.checked) {
+                        checkbox.attr('selected', 'checked');
+                    } else {
+                        checkbox.attr('selected', '');
+                    }
+                });
+            });
+
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/products/IsActive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isActive) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '.btnHot', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/products/IsHot',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isHot) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '.btnHome', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/products/IsHome',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isHome) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '.btnFeature', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/products/IsFeature',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isFeature) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+            $('body').on('click', '.btnSale', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/products/IsSale',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isSale) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

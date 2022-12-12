@@ -1,0 +1,120 @@
+﻿@model FPT_LIBRARY.Models.EF.Posts
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>UPDATE POST</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/posts">Posts</a></li>
+                    <li class="breadcrumb-item active">Update</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Posts Information</h3>
+        </div>
+        <div class="card-body">
+            @if (Model != null)
+            {
+                <div class="bs-stepper-content">
+                    @using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(x => x.Id)
+                        @Html.HiddenFor(x => x.CreateDate)
+                        @Html.HiddenFor(x => x.CategoryId)
+                        <!-- your steps content here -->
+                        <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                            <div class="form-group">
+                                <label>Title</label>
+                                @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = "Title" })
+                                @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label>Category</label>
+                                @Html.DropDownListFor(x => x.CategoryId, ViewBag.Category as SelectList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.CategoryId, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Image</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        @Html.TextBoxFor(x => x.Image, new { @id = "txtImage", @class = "form-control", placeholder = "Title" })
+                                    </div>
+                                    <div class="input-group-append">
+                                        <input type="button" value="Upload Image" onclick="BrowseServer('txtImage');" style="margin-left: 5px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", placeholder = "Description" })
+                            </div>
+                            <div class="form-group">
+                                <label>Detail</label>
+                                @Html.TextAreaFor(x => x.Detail, new { @class = "form-control", id = "txtDetail" })
+                            </div>
+                            <div class="form-group">
+                                <label>SEO Title</label>
+                                @Html.TextBoxFor(x => x.SeoTitle, new { @class = "form-control", placeholder = "SEO Title" })
+                            </div>
+                            <div class="form-group">
+                                <label>SEO Description</label>
+                                @Html.TextAreaFor(x => x.SeoDescription, new { @class = "form-control", placeholder = "SEO Description" })
+                            </div>
+                            <div class="form-group">
+                                <label>SEO Keywords</label>
+                                @Html.TextBoxFor(x => x.SeoKeywords, new { @class = "form-control", placeholder = "SEO Keywords" })
+                            </div>
+                            <div class="form-group">
+                                <label>Display </label>
+                                @Html.CheckBoxFor(x => x.IsActive)
+                            </div>
+                            <div class="form-group">
+                                <a href="/admin/posts" class="btn btn-primary">BACK</a>
+                                <button type="submit" class="btn btn-warning">UPDATE</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            CKEDITOR.replace('txtDetail', {
+                customConfig: '/content/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+        function BrowseServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                document.getElementById(field).value = fileUrl;
+            };
+            finder.popup();
+        }
+    </script>
+}

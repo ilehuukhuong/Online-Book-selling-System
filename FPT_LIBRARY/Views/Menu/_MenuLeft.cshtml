@@ -1,0 +1,19 @@
+﻿@model IEnumerable<FPT_LIBRARY.Models.EF.ProductCategory>
+@if (Model != null && Model.Any())
+{
+    <ul class="sidebar_categories">
+        @foreach (var item in Model)
+        {
+            <li><a href="@item.Alias-@item.Id">@item.Title</a></li>
+
+        }
+        @*<li class="active"><a href="#"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>Women</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Collection</a></li>
+        <li><a href="#">Shop</a></li>*@
+
+
+    </ul>
+}
+

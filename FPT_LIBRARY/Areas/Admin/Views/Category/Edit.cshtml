@@ -1,0 +1,82 @@
+﻿@model FPT_LIBRARY.Models.EF.Category
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>UPDATE CATEGORY</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/category">Category</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Category Information</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <!-- your steps content here -->
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            @Html.TextBoxFor(x => x.Title, new { @class = "form-control", placeholder = "Category Name" })
+                            @Html.ValidationMessageFor(x => x.Title, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", placeholder = "Description" })
+                        </div>
+                        <div class="form-group">
+                            <label>Position</label>
+                            @Html.TextBoxFor(x => x.Position, new { @class = "form-control", type = "number" })
+                            @Html.ValidationMessageFor(x => x.Position, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>SEO Title</label>
+                            @Html.TextBoxFor(x => x.SeoTitle, new { @class = "form-control", placeholder = "SEO Title" })
+                        </div>
+                        <div class="form-group">
+                            <label>SEO Description</label>
+                            @Html.TextAreaFor(x => x.SeoDescription, new { @class = "form-control", placeholder = "SEO Description" })
+                        </div>
+                        <div class="form-group">
+                            <label>SEO Keywords</label>
+                            @Html.TextBoxFor(x => x.SeoKeywords, new { @class = "form-control", placeholder = "SEO Keywords" })
+                        </div>
+                        <div class="form-group">
+                            <label>Display </label>
+                            @Html.CheckBoxFor(x => x.IsActive)
+                        </div>
+                        <div class="form-group">
+                            <a href="/admin/category" class="btn btn-primary">BACK</a>
+                            <button type="submit" class="btn btn-warning">UPDATE</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->

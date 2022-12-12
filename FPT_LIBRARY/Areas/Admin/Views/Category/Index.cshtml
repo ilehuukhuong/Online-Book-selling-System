@@ -1,0 +1,141 @@
+﻿@model PagedList.PagedList<FPT_LIBRARY.Models.EF.Category>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>CATEGORIES MANAGEMENT</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/home">Home</a></li>
+                    <li class="breadcrumb-item active">Category</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">List Categories</h3>
+            <div class="card-tools">
+                <a href="/admin/category/add" class="btn btn-primary">CREATE</a>
+            </div>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "Category", FormMethod.Get, new { }))
+            {
+                <div class="input-group">
+                    @Html.TextBox("Searchtext", "", new { @class = "form-control", placeholder = "Type Something To Search" })
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-info" value="Search" style="margin-left: 5px;">
+                    </div>
+                </div>
+            }
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Position</th>
+                        <th class="text-center">Display</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var items in Model)
+                        {
+                            var strCheck = items.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            <tr id="trow_@items.Id">
+                                <td class="text-center">@i</td>
+                                <td class="text-center">@items.Title</td>
+                                <td class="text-center">@items.Position</td>
+                                <td class="text-center">
+                                    <a href='#' data-id="@items.Id" class="btnActive">@Html.Raw(strCheck)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="/admin/category/edit/@items.Id" class="btn btn-sm btn-warning">UPDATE</a>
+                                    <a href="#" data-id="@items.Id" class="btn btn-sm btn-danger btnDelete">DELETE</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">No value!!!</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Do you want to delete this category?');
+                if (conf == true) {
+                    $.ajax({
+                        url: '/admin/category/delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    });
+                };
+            });
+            $('body').on('click', '.btnActive', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = $(this).data("id");
+                $.ajax({
+                    url: '/admin/category/isactive',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.success) {
+                            if (rs.isActive) {
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

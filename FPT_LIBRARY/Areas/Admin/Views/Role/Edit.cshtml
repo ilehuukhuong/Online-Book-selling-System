@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework
+@model IdentityRole
+@{
+    ViewBag.Title = " Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>UPDATE ROLE</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/admin/role">Role</a></li>
+                    <li class="breadcrumb-item active">Update</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Role Information</h3>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "Role", FormMethod.Post))
+            {
+                @Html.ValidationSummary(false)
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label>Role Name</label>
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Role Name" })
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">UPDATE</button>
+                </div>
+            }
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
