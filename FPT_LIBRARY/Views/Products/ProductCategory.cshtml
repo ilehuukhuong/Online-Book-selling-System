@@ -143,8 +143,6 @@
                                         {
                                             strImge = img.Image;
                                         }
-
-
                                         <div class="product-item @item.ProductCategory.Alias">
                                             <div class="product discount">
                                                 <div class="product_image">
@@ -161,7 +159,7 @@
                                                 @if (item.PriceSale > 0)
                                                 {
                                                     <div class="product_price">@FPT_LIBRARY.Common.Common.FormatNumber(item.PriceSale, 0) <span>@FPT_LIBRARY.Common.Common.FormatNumber(item.Price, 0)</span></div>
-                                                    <div style="display:none" class="in_product_price">@item.Price</div>
+                                                    <div style="display:none" class="in_product_price">@item.PriceSale</div>
                                                 }
                                                 else
                                                 {
