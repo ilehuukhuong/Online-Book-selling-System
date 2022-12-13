@@ -1,0 +1,82 @@
+﻿@model IEnumerable<FPT_LIBRARY.Models.ShoppingCartItem>
+@using FPT_LIBRARY.Common
+@{
+    ViewBag.Title = "Cart";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li class="active"><a href="/"><i class="fa fa-angle-right" aria-hidden="true"></i>Cart</a></li>
+                </ul>
+            </div>
+
+            <!-- Sidebar -->
+            <!-- Main Content -->
+
+            <div class="main_content">
+                <table class="table">
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>Product Picture</th>
+                        <th>Product Portfolio</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>
+                            
+                        </th>
+                    </tr>
+                    @if (Model!= null  && Model.Any())
+                    {
+                        var i = 0;
+                        var total=decimal.Zero;
+                        foreach (var item in Model)
+                        {
+                            total += item.TotalPrice;
+                            <tr class="text-center" id="trow_@item.ProductId">
+                                <td>@(i+1)</td>
+                                <td><img src="@item.ProductImg" width="115" /></td>
+                                <td>
+                                    <a href="/detail/@item.Alias-p@(item.ProductId)">
+                                        @item.ProductName
+                                    </a>
+                                </td>
+                                <td>@item.CategoryName</td>
+                                <td>@Common.FormatNumber(item.Price)</td>
+                                <td>@item.Quantity</td>
+                                <th>@Common.FormatNumber(item.TotalPrice)</th>
+                                <td><a href="#" data-id="@(item.ProductId)" class="btn btn-sm btn-danger btnDelete">Delete</a></td>
+                            </tr>
+                            i++;
+                        }
+                <tr>
+                    <th colspan="5" class="text-center">Total:</th>
+                    <th class="text-center">@Common.FormatNumber(total, 0)</th>
+                    <td></td>
+                </tr>
+
+                     }
+                     else
+                     {     <tr>
+                               <th colspan="7">Don't have Product in Cart!</th>
+                           </tr>
+                     }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+}
+

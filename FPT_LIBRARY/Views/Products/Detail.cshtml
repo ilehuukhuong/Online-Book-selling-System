@@ -68,7 +68,7 @@
                     <p>@Model.Description</p>
                 </div>
              
-                @if (Model.PriceSale > 0)
+                @if (Model.IsSale == true)
                 {
                     <div class="original_price">@FPT_LIBRARY.Common.Common.FormatNumber(Model.Price, 0)</div>
                     <div class="product_price">@FPT_LIBRARY.Common.Common.FormatNumber(Model.PriceSale, 0)</div>
