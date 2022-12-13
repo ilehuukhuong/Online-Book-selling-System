@@ -26,6 +26,12 @@ namespace FPT_LIBRARY
                namespaces: new[] { "FPT_LIBRARY.Controllers" }
            );
             routes.MapRoute(
+               name: "detailProduct",
+               url: "detail/{alias}-p{id}",
+               defaults: new { controller = "Products", action = "Detail", id = UrlParameter.Optional },
+               namespaces: new[] { "FPT_LIBRARY.Controllers" }
+           );
+            routes.MapRoute(
               name: "Contact",
               url: "contact",
               defaults: new { controller = "Contact", action = "Index", alias = UrlParameter.Optional },
