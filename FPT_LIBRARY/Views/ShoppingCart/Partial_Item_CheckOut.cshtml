@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FPT_LIBRARY.Models.ShoppingCartItem>
+@using FPT_LIBRARY.Common
+@if (Model != null && Model.Any())
+{
+    <h3>Cart <span style="float:right;"><small>@Model.Count()</small></span></h3>
+    var i = 0;
+    var total = decimal.Zero;
+    <div style="border:1px solid #808080;">
+        <table class="table">
+            @foreach (var item in Model)
+            {
+                total += item.TotalPrice;
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td style="float:right;">@Common.FormatNumber(item.Price, 0)</td>
+                </tr>
+            }
+            <tr>
+                <td>Total</td>
+                <td style="float:right;">@Common.FormatNumber(total, 0)</td>
+            </tr>
+        </table>
+    </div>
+}
+else
+{
+
+}

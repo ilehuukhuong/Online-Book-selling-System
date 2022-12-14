@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FPT_LIBRARY.Models.ShoppingCartItem>
+@using FPT_LIBRARY.Common
+<table class="table">
+    <tr class="text-center">
+        <th>ID</th>
+        <th>Product Picture</th>
+        <th>Product Portfolio</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th style="width:100px;">Quantity</th>
+        <th>Total Price</th>
+        <th style="width:200px;">
+
+        </th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 0;
+        var total = decimal.Zero;
+        foreach (var item in Model)
+        {
+            total += item.TotalPrice;
+            <tr class="text-center" id="trow_@item.ProductId">
+                <td>@(i+1)</td>
+                <td><img src="@item.ProductImg" width="115" /></td>
+                <td>
+                    <a href="/detail/@item.Alias-p@(item.ProductId)">
+                        @item.ProductName
+                    </a>
+                </td>
+                <td>@item.CategoryName</td>
+                <td>@Common.FormatNumber(item.Price)</td>
+                <td><input type="number" value="@item.Quantity" id="Quantity_@item.ProductId" class="form-control" /></td>
+                <th>@Common.FormatNumber(item.TotalPrice)</th>
+                <td>
+                    <a href="#" data-id="@(item.ProductId)" class="btn btn-sm btn-warning btnUpdate">Update</a>
+                    <a href="#" data-id="@(item.ProductId)" class="btn btn-sm btn-danger btnDelete">Delete</a>
+                </td>
+            </tr>
+            i++;
+        }
+        <tr>
+            <th colspan="6" class="text-right">Total:</th>
+            <th class="text-center">@Common.FormatNumber(total, 0)</th>
+            <th class="text-center">
+                <a href="/Payment" class="btn btn-sm btn-success">Checkout</a>
+                <a href="#" class="btn btn-danger btn-sm btnDeleteAll">Delete</a>
+            </th>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <th colspan="7">Don't have Product in Cart!</th>
+        </tr>
+    }
+</table>

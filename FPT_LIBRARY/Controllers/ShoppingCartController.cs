@@ -13,12 +13,35 @@ namespace FPT_LIBRARY.Controllers
         // GET: ShoppingCart
         public ActionResult Index()
         {
+            return View();
+        }
+        public ActionResult CheckOut()
+        {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];
             if (cart != null)
             {
+                ViewBag.ChekCart=cart;
                 return View(cart.Items);
             }
             return View();
+        }
+        public ActionResult Partial_Item_CheckOut()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
+        }
+        public ActionResult Partial_Item_Cart()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+                return PartialView(cart.Items);
+            }
+            return PartialView();
         }
         public ActionResult ShowCount()
         {
@@ -55,7 +78,7 @@ namespace FPT_LIBRARY.Controllers
                 {
                     item.ProductImg = checkProduct.ProductImage.FirstOrDefault(x => x.IsDefault).Image;
                 }
-                if (checkProduct.IsSale == true )
+                if (checkProduct.IsSale == true && checkProduct.PriceSale != null && checkProduct.PriceSale > 0)
                 {
                     item.Price = (decimal)checkProduct.PriceSale;
 
@@ -87,6 +110,31 @@ namespace FPT_LIBRARY.Controllers
             }
             return Json(code);
 
+        }
+
+        [HttpPost]
+        public ActionResult DeleteAll()
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null )
+            {
+                cart.ClearCart();
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
+        }
+
+        [HttpPost]
+        public ActionResult Update(int id, int quantity)
+        {
+            ShoppingCart cart = (ShoppingCart)Session["Cart"];
+            if (cart != null)
+            {
+
+                cart.UpdateQuantity(id, quantity);
+                return Json(new { Success = true });
+            }
+            return Json(new { Success = false });
         }
     }
 }

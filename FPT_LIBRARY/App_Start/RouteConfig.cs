@@ -20,6 +20,12 @@ namespace FPT_LIBRARY
                namespaces: new[] { "FPT_LIBRARY.Controllers" }
            );
             routes.MapRoute(
+               name: "Payment",
+               url: "payment",
+               defaults: new { controller = "ShoppingCart", action = "CheckOut", alias = UrlParameter.Optional },
+               namespaces: new[] { "FPT_LIBRARY.Controllers" }
+           );
+            routes.MapRoute(
               name: "ShoppingCart",
               url: "cart",
               defaults: new { controller = "ShoppingCart", action = "Index", alias = UrlParameter.Optional },
