@@ -10,9 +10,10 @@ namespace FPT_LIBRARY.Models.EF
     [Table("tb_OrderDetail")]
     public class OrderDetail
     {
-        [Key, Column(Order = 0)]
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
         public int OrderId { get; set; }
-        [Key, Column(Order = 1)]
         public int ProductId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }

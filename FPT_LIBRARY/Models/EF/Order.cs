@@ -8,7 +8,7 @@ using System.Web;
 namespace FPT_LIBRARY.Models.EF
 {
     [Table("tb_Order")]
-    public class Order
+    public class Order:CommonAbstract
     {
         public Order()
         {
@@ -19,15 +19,17 @@ namespace FPT_LIBRARY.Models.EF
         public int Id { get; set; }
         [Required]
         public string Code { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Full Name cannot be left blank")]
         public string CustomerName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Phone number cannot be left blank")]
         public string Phone { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Address cannot be left blank")]
         public string Address { get; set; }
+        public string Email { get; set; }
         [Required]
         public decimal TotalAmount { get; set; }
         public int Quantity { get; set; }
+        public int TypePayment { get; set; }
         public ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

@@ -199,6 +199,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212141827346_UpdatePayment.cs" />
+    <Compile Include="Migrations\202212141827346_UpdatePayment.designer.cs">
+      <DependentUpon>202212141827346_UpdatePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212141844129_UpdatePayment1.cs" />
+    <Compile Include="Migrations\202212141844129_UpdatePayment1.designer.cs">
+      <DependentUpon>202212141844129_UpdatePayment1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212141931019_UpdatePayment2.cs" />
+    <Compile Include="Migrations\202212141931019_UpdatePayment2.designer.cs">
+      <DependentUpon>202212141931019_UpdatePayment2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212142021055_UpdateEmail.cs" />
+    <Compile Include="Migrations\202212142021055_UpdateEmail.designer.cs">
+      <DependentUpon>202212142021055_UpdateEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -218,6 +234,7 @@
     <Compile Include="Models\EF\SystemSetting.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrderViewModel.cs" />
     <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -3144,6 +3161,8 @@
     <Content Include="Content\clients\plugins\uplot\uPlot.iife.min.js" />
     <Content Include="Content\clients\plugins\uplot\uPlot.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\templates\send1.html" />
+    <Content Include="Content\templates\send2.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3399,6 +3418,8 @@
     <Content Include="Views\ShoppingCart\Partial_Item_Cart.cshtml" />
     <Content Include="Views\ShoppingCart\CheckOut.cshtml" />
     <Content Include="Views\ShoppingCart\Partial_Item_CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\Partial_CheckOut.cshtml" />
+    <Content Include="Views\ShoppingCart\CheckOutSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3417,6 +3438,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202212141827346_UpdatePayment.resx">
+      <DependentUpon>202212141827346_UpdatePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212141844129_UpdatePayment1.resx">
+      <DependentUpon>202212141844129_UpdatePayment1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212141931019_UpdatePayment2.resx">
+      <DependentUpon>202212141931019_UpdatePayment2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212142021055_UpdateEmail.resx">
+      <DependentUpon>202212142021055_UpdateEmail.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
