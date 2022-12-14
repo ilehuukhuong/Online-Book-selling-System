@@ -21,7 +21,28 @@
             }
         });
     });
+    
 
+    $('body').on('click', '.btnAddToCartDetail', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var quatity = 1;
+        var tQuantity = document.getElementById("quantity_value").innerHTML;
+        if (tQuantity != '') {
+            quatity = parseInt(tQuantity);
+        }
+        $.ajax({
+            url: '/shoppingcart/addtocart',
+            type: 'POST',
+            data: { id: id, quantity: quatity },
+            success: function (rs) {
+                if (rs.Success) {
+                    $('#checkout_items').html(rs.Count);
+                    alert(rs.msg);
+                }
+            }
+        });     
+    });
     $('body').on('click', '.btnDelete', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
@@ -43,7 +64,7 @@
                     }
                 }
             });
-        }       
+        }
     });
 });
 function ShowCount() {

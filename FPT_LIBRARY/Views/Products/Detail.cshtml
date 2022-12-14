@@ -68,7 +68,7 @@
                     <p>@Model.Description</p>
                 </div>
              
-                @if (Model.IsSale == true)
+                @if (Model.PriceSale > 0 && Model.IsSale == true)
                 {
                     <div class="original_price">@FPT_LIBRARY.Common.Common.FormatNumber(Model.Price, 0)</div>
                     <div class="product_price">@FPT_LIBRARY.Common.Common.FormatNumber(Model.PriceSale, 0)</div>
@@ -100,7 +100,7 @@
                         <span id="quantity_value">1</span>
                         <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                     </div>
-                    <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@Model.Id">add to cart</a></div>
+                    <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCartDetail" data-id="@Model.Id">add to cart</a></div>
                     <div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
                 </div>
             </div>
