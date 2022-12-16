@@ -1,0 +1,30 @@
+﻿@model IEnumerable<FPT_LIBRARY.Models.EF.OrderDetail>
+@if ( Model != null && Model.Any())
+{
+    int i = 1;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product.Title</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.Product.Quantity</td>
+                    <td>@FPT_LIBRARY.Common.Common.FormatNumber((item.Price * item.Quantity), 0)</td>
+                </tr>
+                i++;
+
+            }
+            
+        </tbody>
+    </table>
+}
