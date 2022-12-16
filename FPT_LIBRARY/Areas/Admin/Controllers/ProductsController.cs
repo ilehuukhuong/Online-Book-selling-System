@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace FPT_LIBRARY.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

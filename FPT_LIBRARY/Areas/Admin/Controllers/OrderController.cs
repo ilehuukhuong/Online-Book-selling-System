@@ -10,6 +10,7 @@ using System.Web.Services.Description;
 
 namespace FPT_LIBRARY.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class OrderController : Controller
     {
         private ApplicationDbContext db= new ApplicationDbContext();

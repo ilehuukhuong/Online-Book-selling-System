@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace FPT_LIBRARY.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AccountController : Controller
     {
         public AccountController()
