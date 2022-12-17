@@ -33,16 +33,24 @@
             }
             if (!context.ProductCategories.Any())
             {
-                CreateBookCategory(context, "Action and Adventure", "/Uploads/images/genre/2.jpg");
+                CreateBookCategory(context, "Action", "/Uploads/images/genre/2.jpg");
                 CreateBookCategory(context, "Classics", "/Uploads/images/genre/1.jpg");
                 CreateBookCategory(context, "Fantasy", "/Uploads/images/genre/3.jpg");
                 context.SaveChanges();
             }
             if (!context.Categories.Any())
             {
-                CreateCategory(context, "Home", 1);
-                CreateCategory(context, "Product", 2);
-                CreateCategory(context, "Contact", 3);
+                CreateCategory(context, "Home", 1,true);
+                CreateCategory(context, "Product", 2,true);
+                CreateCategory(context, "Contact", 3, true);
+                CreateCategory(context, "News", 100, false);
+                context.SaveChanges();
+            }
+            if (!context.News.Any())
+            {
+                CreateNews(context,"Pham Van Hiep", "Is Mother Dead by Vigdis Hjorth – a daughter’s lament", true, "/Uploads/images/news/5248.jpg");
+                CreateNews(context,"Le Huu Khuong","‘I’m parking my guilt’: confessions of a celebrity children’s book ghost writer", true, "/Uploads/images/news/6240.jpg");
+                CreateNews(context, "Nuyen Phuc Anh", "Innocence, sex and war: Geoff Dyer on why the Go-Between is a novel for our time", true, "/Uploads/images/news/4284.jpg");
                 context.SaveChanges();
             }
         }
@@ -101,11 +109,11 @@
             context.ProductCategories.Add(cate);
         }
 
-        private void CreateCategory(ApplicationDbContext context, string title, int position)
+        private void CreateCategory(ApplicationDbContext context, string title, int position, bool display)
         {
             var cate = new Category();
             cate.Title = title;
-            cate.IsActive = true;
+            cate.IsActive = display;
             cate.Position = position;
             cate.CreateDate = DateTime.Now;
             cate.ModifiedDate = DateTime.Now;
@@ -113,6 +121,22 @@
             cate.SeoTitle = title;
             cate.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(title);
             context.Categories.Add(cate);
+        }
+
+        private void CreateNews(ApplicationDbContext context, string author , string title, bool display, string image)
+        {
+            var news = new News();
+            news.CreateBy = author;
+            news.Title = title;
+            news.Image = image;
+            news.IsActive = display;
+            news.CategoryId = 4;
+            news.CreateDate = DateTime.Now;
+            news.ModifiedDate = DateTime.Now;
+            news.Description = title;
+            news.SeoTitle = title;
+            news.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(title);
+            context.News.Add(news);
         }
 
         //private void CreateBook(ApplicationDbContext db,
