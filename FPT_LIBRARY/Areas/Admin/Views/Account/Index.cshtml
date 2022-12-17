@@ -39,7 +39,6 @@
                         <th class="text-center">Username</th>
                         <th class="text-center">Name</th>
                         <th class="text-center">Email</th>
-                        <th class="text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,10 +52,6 @@
                                 <td class="text-center">@item.UserName</td>
                                 <td class="text-center">@item.FirstName @item.LastName</td>
                                 <td class="text-center">@item.Email</td>
-                                <td class="text-center">
-                                    <a href="/admin/account/edit/@item.UserName" class="btn btn-sm btn-warning">UPDATE</a>
-                                    <a href="#" data-user="@item.UserName" class="btn btn-sm btn-danger btnDelete">DELETE</a>
-                                </td>
                             </tr>
                             i++;
                         }

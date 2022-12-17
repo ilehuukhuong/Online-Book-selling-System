@@ -149,8 +149,8 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="menu_selection">
-                            <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
-                            <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+                            <li><a href="account/login"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+                            <li><a href="Account/Login"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
                         </ul>
                     </li>
                     <li class="menu_item"><a href="#">home</a></li>
@@ -166,28 +166,7 @@
 
 
         <!-- Newsletter -->
-
-        <div class="newsletter">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
-                            <h4>Newsletter</h4>
-                            <p>Subscribe to our newsletter and get 20% off your first purchase</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <form action="post">
-                            <div class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
-                                <input id="newsletter_email" type="email" placeholder="Your email" required="required" data-error="Valid email is required.">
-                                <button id="newsletter_submit" type="submit" class="newsletter_submit_btn trans_300" value="Submit">subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        @Html.Action("Partial_Subcribe", "Home")
         <!-- Footer -->
 
         <footer class="footer">
@@ -236,6 +215,7 @@
     <script src="~/Content/assets/js/custom.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     @*Scripts.Render("~/bundles/bootstrap")*@
     <script src="~/Scripts/jsShopping.js"></script>
     @RenderSection("scripts", required: false)
