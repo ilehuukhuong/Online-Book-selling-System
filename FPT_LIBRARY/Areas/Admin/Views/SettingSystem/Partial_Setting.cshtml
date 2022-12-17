@@ -1,0 +1,80 @@
+﻿@using(Ajax.BeginForm("AddSetting", "SettingSystem",new AjaxOptions
+{
+    OnBegin="OneBegin",
+    OnSuccess="OnSuccess",
+    OnFailure="OnFailure"
+}))
+{ 
+    <script>
+        function OnBegin(rs)
+        {
+            $('#load_page').html('Saving...');
+        }
+        function OnSuccess(rs) {
+
+        }
+        function OnFailure(rs) {
+
+        }
+    </script>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">All News</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#settingSeo" data-toggle="tab">SEO</a></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <div class="form-group">
+                            <label>Title page</label>
+                            <input type="text" name="SettingTitle" class="form-control" />
+                        </div>
+                        <div class="form=group">
+                            <label>Logo</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="text" name="txtSettingLogo" class="form-control" />
+                                </div>
+                                <div class="input-group-append">
+                                    <input type="button" value="Download image" onclick="BrowseServer('SettingLogo');" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Hotline</label>
+                            <input type="text" name="SettingHotline" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" name="SettingEmail" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="settingSeo">
+                        <div class="form-group">
+                            <label>SEO Title</label>
+                            <input type="text" name="SettingTitleSeo" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description SEO</label>
+                            <textarea type="text" name="SettingDesSeo" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>SEO Key</label>
+                            <textarea type="text" name="SettingKeySeo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+    
