@@ -53,6 +53,51 @@
                 CreateNews(context, "Nuyen Phuc Anh", "Innocence, sex and war: Geoff Dyer on why the Go-Between is a novel for our time", true, "/Uploads/images/news/4284.jpg");
                 context.SaveChanges();
             }
+            if (!context.Products.Any())
+            {
+                CreateBook(context, "The Heroes Of Olympus", 3, 5, 0);
+                CreateBook(context, "Percy Jackson", 3, 10, 0);
+                CreateBook(context, "Sherlock Holmes: The Complete Novels and Stories Volume II", 2, 9, 7);
+                CreateBook(context, "Magnus Chase And The Gods Of Asgard Book 3: The Ship Of The Dead", 1, 20, 9);
+                CreateBook(context, "After We Collided (The After Series Book 2)", 2, 17, 15);
+                CreateBook(context, "After Ever Happy (The After Series Book 4)", 2, 19, 15);
+                CreateBook(context, "Star Wars Vol. 13: Rogues And Rebels", 1, 29, 21);
+                CreateBook(context, "The Kane Chronicles 1: The Red Pyramid", 3, 30, 25);
+                CreateBook(context, "Star Wars: Darth Vader Vol. 2: Shadows And Secrets\r\n", 1, 28, 0);
+                context.SaveChanges();
+            }
+            if (!context.ProductImages.Any())
+            {
+                ImageBook(context, 1, false, "/Uploads/images/books/1.png");
+                ImageBook(context, 1, false, "/Uploads/images/books/2.png");
+                ImageBook(context, 1, true, "/Uploads/images/books/3.jpg");
+                ImageBook(context, 2, false, "/Uploads/images/books/4.jpg");
+                ImageBook(context, 2, false, "/Uploads/images/books/5.jpg");
+                ImageBook(context, 2, true, "/Uploads/images/books/6.jpg");
+                ImageBook(context, 3, true, "/Uploads/images/books/7.jpg");
+                ImageBook(context, 3, false, "/Uploads/images/books/8.jpg");
+                ImageBook(context, 3, false, "/Uploads/images/books/9.png");
+                ImageBook(context, 4, true, "/Uploads/images/books/10.jpg");
+                ImageBook(context, 4, false, "/Uploads/images/books/11.jpg");
+                ImageBook(context, 4, false, "/Uploads/images/books/12.png");
+                ImageBook(context, 5, true, "/Uploads/images/books/13.jpg");
+                ImageBook(context, 5, false, "/Uploads/images/books/14.png");
+                ImageBook(context, 5, false, "/Uploads/images/books/15.png");
+                ImageBook(context, 6, true, "/Uploads/images/books/16.jpg");
+                ImageBook(context, 6, false, "/Uploads/images/books/17.jpg");
+                ImageBook(context, 6, false, "/Uploads/images/books/18.jpg");
+                ImageBook(context, 7, true, "/Uploads/images/books/19.jpg");
+                ImageBook(context, 7, false, "/Uploads/images/books/20.jpg");
+                ImageBook(context, 7, false, "/Uploads/images/books/21.jpg");
+                ImageBook(context, 8, true, "/Uploads/images/books/22.jpg");
+                ImageBook(context, 8, false, "/Uploads/images/books/23.jpg");
+                ImageBook(context, 8, false, "/Uploads/images/books/24.jpg");
+                ImageBook(context, 9, true, "/Uploads/images/books/25.jpg");
+                ImageBook(context, 9, false, "/Uploads/images/books/26.jpg");
+                ImageBook(context, 9, false, "/Uploads/images/books/27.png");
+                context.SaveChanges();
+            }
+
         }
         private void CreateAdminUser(ApplicationDbContext context, string adminEmail, string adminPhoneNumber, string adminUserName, string adminPassword, string adminFirstName, string adminLastName, string adminRole)
         {
@@ -95,7 +140,6 @@
                 throw new Exception(string.Join("; ", addAdminRoleResult.Errors));
             }
         }
-
         private void CreateBookCategory(ApplicationDbContext context,string title, string icon)
         {
             var cate = new ProductCategory();
@@ -108,7 +152,6 @@
             cate.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(title);
             context.ProductCategories.Add(cate);
         }
-
         private void CreateCategory(ApplicationDbContext context, string title, int position, bool display)
         {
             var cate = new Category();
@@ -122,7 +165,6 @@
             cate.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(title);
             context.Categories.Add(cate);
         }
-
         private void CreateNews(ApplicationDbContext context, string author , string title, bool display, string image)
         {
             var news = new News();
@@ -138,21 +180,34 @@
             news.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(title);
             context.News.Add(news);
         }
+        private void CreateBook(ApplicationDbContext context, string name, int cate, decimal price, decimal sale)
+        {
+            var book = new Product();
+            book.Title = name;
+            book.IsActive = true;
+            book.IsHot = true;
+            book.IsFeature= true;
+            book.IsHome= true;
+            book.IsSale= true;
+            book.ProductCategoryId = cate;
+            book.CreateDate = DateTime.Now;
+            book.ModifiedDate = DateTime.Now;
+            book.Description = name;
+            book.SeoTitle = name;
+            book.Price= price;
+            book.PriceSale=sale;
+            book.Alias = FPT_LIBRARY.Models.Common.Filter.FilterChar(name);
+            context.Products.Add(book);
+        }
+        private void ImageBook(ApplicationDbContext context, int book, bool display, string image)
+        {
+            var imagebook = new ProductImage();
+            imagebook.Image = image;
+            imagebook.ProductId = book;
+            imagebook.IsDefault = display;
+            context.ProductImages.Add(imagebook);
+        }
 
-        //private void CreateBook(ApplicationDbContext db,
-        //    string title, string body, DateTime date, string authorUsername)
-        //{
-        //    var book = new Product();
-        //    book.Title = title;
-        //    book.Body = body;
-        //    book.Date = date;
-        //    book.Author = context.Users.Where(u => u.UserName == authorUsername).FirstOrDefault();
-        //    context.Posts.Add(post);
-        //}
 
-        //  This method will be called after migrating to the latest version.
-
-        //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-        //  to avoid creating duplicate seed data.
     }
 }
