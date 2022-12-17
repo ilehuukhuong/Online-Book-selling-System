@@ -57,6 +57,7 @@ namespace FPT_LIBRARY
                 namespaces: new[] { "FPT_LIBRARY.Controllers" }
 
             );
+           
         }
     }
 }
