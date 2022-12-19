@@ -37,7 +37,6 @@
 </div>
 
 <!-- Deal of the week -->
-
 <!-- Best Sellers -->
 @Html.Action("Partial_ProductSales", "Products")
 <!-- Benefit -->
@@ -88,3 +87,6 @@
 <!-- Blogs -->
 @Html.Action("Partial_News_Home", "News")
 
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

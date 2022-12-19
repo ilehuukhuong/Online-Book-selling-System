@@ -40,35 +40,35 @@ namespace FPT_LIBRARY.Controllers
                     cart.Items.ForEach(x => order.OrderDetails.Add(new OrderDetail
                     {
                         ProductId = x.ProductId,
-                        Quantity= x.Quantity,
-                        Price= x.Price,
+                        Quantity = x.Quantity,
+                        Price = x.Price,
                     }));
-                    order.TotalAmount=cart.Items.Sum(x=>(x.Price*x.Quantity));
+                    order.TotalAmount = cart.Items.Sum(x => (x.Price * x.Quantity));
                     order.TypePayment = req.TypePayment;
-                    order.CreateDate= DateTime.Now;
-                    order.ModifiedDate= DateTime.Now;
+                    order.CreateDate = DateTime.Now;
+                    order.ModifiedDate = DateTime.Now;
                     order.CreateBy = req.Phone;
-                    order.Email= req.Email;
+                    order.Email = req.Email;
                     Random rd = new Random();
-                    order.Code="OD"+ rd.Next(0,9)+ rd.Next(0, 9)+ rd.Next(0, 9)+ rd.Next(0, 9)+ rd.Next(0, 9)+ rd.Next(0, 9);
+                    order.Code = "OD" + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9) + rd.Next(0, 9);
                     db.Orders.Add(order);
                     db.SaveChanges();
                     //send mail to customer
                     var strProduct = "";
                     var price = decimal.Zero;
                     var total = decimal.Zero;
-                    foreach(var sp in cart.Items)
+                    foreach (var sp in cart.Items)
                     {
                         strProduct += "<tr>";
                         strProduct += "<td style=\"color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word\">" + sp.ProductName + "</td>";
                         strProduct += "<td style=\"color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word\">" + sp.Quantity + "</td>";
                         strProduct += "<td style=\"color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word\">" + FPT_LIBRARY.Common.Common.FormatNumber(sp.TotalPrice, 0) + "</td>";
                         strProduct += "</tr>";
-                        price += sp.Price * sp.Quantity;;
+                        price += sp.Price * sp.Quantity; ;
                     }
                     var tax = decimal.Zero;
                     tax = price / 100 * 9;
-                    total =price + tax;
+                    total = price + tax;
                     string contentCustomer = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/send2.html"));
                     contentCustomer = contentCustomer.Replace("{{OrderId}}", order.Code);
                     contentCustomer = contentCustomer.Replace("{{Product}}", strProduct);
@@ -100,7 +100,6 @@ namespace FPT_LIBRARY.Controllers
             }
             return Json(code);
         }
-
         public ActionResult Partial_CheckOut()
         {
             return PartialView();

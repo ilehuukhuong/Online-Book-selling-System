@@ -12,12 +12,12 @@
                 total += item.TotalPrice;
                 <tr>
                     <td>@item.ProductName</td>
-                    <td style="float:right;">$@Common.FormatNumber(item.Price, 0)</td>
+                    <td style="float:right;">@Common.FormatNumber(item.Price, 0)</td>
                 </tr>
             }
             <tr>
                 <td>Total</td>
-                <td style="float:right;">$@Common.FormatNumber(total, 0)</td>
+                <td style="float:right;">@Common.FormatNumber(total, 0)</td>
             </tr>
         </table>
     </div>

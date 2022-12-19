@@ -3,7 +3,9 @@
     ViewBag.Title = "Payment";
 }
 <style>
-    .error{color:red;}
+    .error {
+        color: red;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
 <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
@@ -66,12 +68,12 @@
                     'CustomerName': { required: true },
                     'Phone': { required: true },
                     'Address': { required: true },
-                    'Email': { required: true, email:true },
+                    'Email': { required: true, email: true },
                 },
                 messages: {
                     'CustomerName': 'This field is required.',
                     'Address': 'This field is required.'
-                    }
+                }
             });
         });
     </script>
