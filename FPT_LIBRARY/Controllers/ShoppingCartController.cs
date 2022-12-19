@@ -22,7 +22,7 @@ namespace FPT_LIBRARY.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "User,Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CheckOut(OrderViewModel req)
@@ -105,7 +105,7 @@ namespace FPT_LIBRARY.Controllers
         {
             return PartialView();
         }
-
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult CheckOut()
         {
             ShoppingCart cart = (ShoppingCart)Session["Cart"];

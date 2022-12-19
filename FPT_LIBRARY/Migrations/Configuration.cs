@@ -29,7 +29,15 @@
                 var adminFirstName = "admin";
                 var adminLastName = "user";
                 string adminRole = "Administrator";
+                var userEmail = "user@user.com";
+                var userUserName = userEmail;
+                var userPassword = userUserName;
+                var userPhoneNumber = "0385190202";
+                var userFirstName = "user";
+                var userLastName = "user";
+                string userRole = "User";
                 CreateAdminUser(context, adminEmail, adminPhoneNumber, adminUserName, adminPassword, adminFirstName, adminLastName, adminRole);
+                CreateAdminUser(context, userEmail, userPhoneNumber, userUserName, userPassword, userFirstName, userLastName, userRole);
             }
             if (!context.ProductCategories.Any())
             {
