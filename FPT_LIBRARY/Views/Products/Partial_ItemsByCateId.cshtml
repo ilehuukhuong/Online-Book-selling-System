@@ -24,12 +24,12 @@
                     <h6 class="product_name"><a href="/detail/@item.Alias-p@(item.Id)">@item.Title</a></h6>
                     @if (item.PriceSale > 0 && item.IsSale == true && item.PriceSale != null)
                     {
-                        <div class="product_price in_product_price">@FPT_LIBRARY.Common.Common.FormatNumber(item.PriceSale, 0) <span>@FPT_LIBRARY.Common.Common.FormatNumber(item.Price, 0)</span></div>
+                        <div class="product_price in_product_price">$@FPT_LIBRARY.Common.Common.FormatNumber(item.PriceSale, 0) <span>$@FPT_LIBRARY.Common.Common.FormatNumber(item.Price, 0)</span></div>
 
                     }
                     else
                     {
-                        <div class="product_price in_product_price">@FPT_LIBRARY.Common.Common.FormatNumber(item.Price, 0)</div>
+                <div class="product_price in_product_price">$@FPT_LIBRARY.Common.Common.FormatNumber(item.Price, 0)</div>
 
                     }
 

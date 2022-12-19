@@ -90,7 +90,7 @@
                                             <div class="col -4">
                                                 <div class="form-group">
                                                     <label>Price</label>
-                                                    <input type="text" name="demoPrice" value="@Model.Price" id="demoPrice" class="form-control auto" data-a-dec="," data-a-sep="." />
+                                                    <input type="text" name="demoPrice" value="@Model.Price" id="demoPrice" class="form-control auto" data-a-sign="$" data-a-dec="," data-a-sep="." />
                                                     @Html.HiddenFor(x => x.Price, new { @class = "form-control", placeholder = "Price" })
                                                     @Html.ValidationMessageFor(x => x.Price, "", new { @class = "text-danger" })
                                                 </div>
@@ -98,7 +98,7 @@
                                             <div class="col -4">
                                                 <div class="form-group">
                                                     <label>Sale Price</label>
-                                                    <input type="text" name="demoPriceSale" value="@Model.PriceSale" id="demoPriceSale" class="form-control auto" data-a-dec="," data-a-sep="." />
+                                                    <input type="text" name="demoPriceSale" value="@Model.PriceSale" id="demoPriceSale" class="form-control auto" data-a-sign="$" data-a-dec="," data-a-sep="." />
                                                     @Html.HiddenFor(x => x.PriceSale, new { @class = "form-control", placeholder = "Price Sale" })
                                                     @Html.ValidationMessageFor(x => x.PriceSale, "", new { @class = "text-danger" })
                                                 </div>
