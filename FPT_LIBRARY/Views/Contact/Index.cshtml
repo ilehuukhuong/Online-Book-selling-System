@@ -90,40 +90,36 @@
 </div>
 @section scripts{
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    @*<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>*@
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD086KVU16ofpOmuO693wGapKtFiLZE3ts&callback=initMap"></script>
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF3OyFPCknABol0PewmAqLI6TZAaIOCog&callback=initmap"></script>
+        <script>
+            let map;
+            // Initialize and add the map
+            function initMap() {
+                // The location of Uluru
+                const uluru = { lat: 10.803622, lng: 106.652348 };
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 18,
+                    center: uluru,
+                });
+                // The marker, positioned at Uluru
+                const marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map,
+                });
+            }
 
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            const uluru = { lat: 10.803622, lng: 106.652348 };
-            // The map, centered at Uluru
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 18,
-                center: uluru,
-            });
-            // The marker, positioned at Uluru
-            const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-            });
-        }
-
-        window.initMap = initMap;
-    </script>
-    @*<script type="text/javascript">
+            window.initMap = initMap;
+        </script>*@
+    @*<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+        <script type="text/javascript">
             var locations = [
-                ['Bondi Beach', -33.890542, 151.274856, 4],
-                ['Coogee Beach', -33.923036, 151.259052, 5],
-                ['Cronulla Beach', -34.028249, 151.157507, 3],
-                ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-                ['Maroubra Beach', -33.950198, 151.259302, 1]
+                ['FPT Library', 10.803622, 106.652348, 1]
             ];
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 10,
-                center: new google.maps.LatLng(-33.92, 151.25),
+                center: new google.maps.LatLng(10.803622, 106.652348),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
@@ -145,6 +141,37 @@
                 })(marker, i));
             }
         </script>*@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmGmeot5jcjdaJTvfCmQPfzeoG_pABeWo "></script>
+    <script>
+        // When the window has finished loading create our google map below
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 15,
+                scrollwheel: false,
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(10.8036001, 106.6531820), // New York
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapElement = document.getElementById('map');
+
+            // Create the Google Map using our element and options defined above
+            var map = new google.maps.Map(mapElement, mapOptions);
+
+            // Let's also add a marker while we're at it
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(10.8036001, 106.6531820),
+                map: map
+            });
+        }
+        window.init = init;
+    </script>
     <script src="~/Content/assets/js/contact_custom.js"></script>
 
 }
